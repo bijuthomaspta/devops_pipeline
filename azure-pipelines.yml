@@ -23,7 +23,8 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
+        containerRegistry: 'My_Doscker_Hub'
+        repository: 'bijuthomaspta/currency-exchange-devops'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(tag)'
