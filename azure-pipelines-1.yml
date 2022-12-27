@@ -1,0 +1,33 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo k8,Terraform_pipeline!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+- task: TerraformCLI@0
+  inputs:
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=$(client_id)  -var client_secret=$(client_secret)'
+    backendType: 'azurerm'
+    backendServiceArm: 'Azure_roll_based_access_control'
+    backendAzureRmSubscriptionId: '5282a96d-cc9d-4a51-9ba6-6e649fa394bc'
+    ensureBackend: true
+    backendAzureRmResourceGroupName: 'terraform_backend_rg'
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    backendAzureRmStorageAccountName: 'storageaccountxyz'
+    backendAzureRmContainerName: 'storagecontainer'
+    backendAzureRmKey: 'kubernetes-dev.tfstate'
+    allowTelemetryCollection: true
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: 'azure_rsa.pub'
