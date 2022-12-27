@@ -15,27 +15,11 @@ steps:
   displayName: 'Run a multi-line script'
 - task: TerraformCLI@0
   inputs:
-    command: 'init'
+    command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-#    commandOptions: '-var client_id=$(client_id)  -var client_secret=$(client_secret)'
-    backendType: 'azurerm'
-    backendServiceArm: 'Azure_rbac_pipeline'
-    backendAzureRmSubscriptionId: '5282a96d-cc9d-4a51-9ba6-6e649fa394bc'
-    ensureBackend: true
-    backendAzureRmResourceGroupName: 'terraform_backend_rg'
-    backendAzureRmResourceGroupLocation: 'westeurope'
-    backendAzureRmStorageAccountName: 'storageaccountxyz123478'
-    backendAzureRmContainerName: 'storagecontainer'
-    backendAzureRmKey: 'kubernetes-dev.tfstate'
+    commandOptions: '-var client_id=$(client_id)  -var client_secret=$(client_secret)'
     allowTelemetryCollection: true
 - task: DownloadSecureFile@1
   inputs:
     secureFile: 'azure_rsa.pub'
 
-- task: TerraformCLI@0
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    environmentServiceName: 'Azure_rbac_pipeline'
-    commandOptions: '-var client_id=$(client_id)  -var client_secret=$(client_secret)'
-    allowTelemetryCollection: true
