@@ -19,11 +19,8 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
 - task: TerraformCLI@0
   inputs:
-    command: 'apply'
+    command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    runAzLogin: true
-    commandOptions: 'lock=false'
-    allowTelemetryCollection: true
     commandOptions: '-var client_id=$(client_id)  -var client_secret=$(client_secret)'
     backendType: 'azurerm'
     backendServiceArm: 'Azure_rbac_pipeline'
