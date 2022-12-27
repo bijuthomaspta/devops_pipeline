@@ -19,10 +19,6 @@ steps:
     backendType: 'azurerm'
     backendServiceArm: 'Azure_rbac_pipeline'
     backendAzureRmSubscriptionId: '5282a96d-cc9d-4a51-9ba6-6e649fa394bc'
-    backendAzureRmResourceGroupName: 'terraform-backend-rg'
-    backendAzureRmStorageAccountName: 'storageacctrangaxyz52323323232'
-    backendAzureRmContainerName: 'storageacctrangacontainer111'
-    backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
 
 - task: TerraformCLI@0
