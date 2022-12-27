@@ -37,4 +37,5 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     environmentServiceName: 'Azure_rbac_pipeline'
     providerAzureRmSubscriptionId: '5282a96d-cc9d-4a51-9ba6-6e649fa394bc'
+    commandOptions: 'lock=false'
     allowTelemetryCollection: false
