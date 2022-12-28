@@ -39,7 +39,7 @@ stages:
 # Build Docker
 # Push Docker => 100
 # Copy Files to Staging Directory
-# Publish
+
 
 - stage: Deploy
   displayName: Deploy image
