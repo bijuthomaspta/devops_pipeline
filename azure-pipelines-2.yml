@@ -5,7 +5,7 @@ resources:
 - repo: self
 
 variables:
-  tag: 43 #'$(Build.BuildId)'
+  tag: 0.01.RELEASE #'$(Build.BuildId)'
 
 # stages:
 # - stage: Build
@@ -61,4 +61,4 @@ stages:
         kubernetesServiceConnection: 'Kubernetes_connection'
         namespace: 'default'
         manifests: '$(System.DefaultWorkingDirectory)/configuration/kubernetes/deployment.yaml'
-        containers: 'bijuthomaspta/currency-exchange-devops:$(tag)'
+        containers: 'bijuthomaspta/hello-world-java223:$(tag)'
