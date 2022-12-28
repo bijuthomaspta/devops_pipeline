@@ -25,13 +25,12 @@ stages:
     #     command: 'buildAndPush'
     #     Dockerfile: '**/Dockerfile'
     #     tags: '$(tag)'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'manifest'
-        publishLocation: 'Container'
-
-
+         - task: CopyPublishBuildArtifacts@1
+           inputs:
+             CopyRoot: '$(System.DefaultworkingDirectory)'
+             Contents: '**/.yaml'
+             ArtifactName: 'manifest'
+             ArtifactType: 'Container'
 - stage: Deploy
   displayName: Deploy image
   jobs:
