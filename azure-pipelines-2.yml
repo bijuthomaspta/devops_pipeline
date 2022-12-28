@@ -1,0 +1,55 @@
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: 43
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    # - task: Docker@2
+    #   displayName: Build an image
+    #   inputs:
+    #     containerRegistry: 'My_Doscker_Hub'
+    #     repository: 'bijuthomaspta/currency-exchange-devops'
+    #     command: 'buildAndPush'
+    #     Dockerfile: '**/Dockerfile'
+    #     tags: '$(tag)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'manifest'
+        publishLocation: 'Container'
+
+
+- stage: Deploy
+  displayName: Deploy image
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifest'
+        itemPattern: '**/.yaml'
+        targetPath: '$(System.ArtifactsDiirectory)'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'Kubernetes_connection'
+        namespace: 'Deploy_to_kubernetes'
+        manifests: '$(System.ArtifactsDiirectory)/configuration/kubernetes/deployment.yaml'
+        containers: 'bijuthomaspta/currency-exchange-devops:${tag}'
