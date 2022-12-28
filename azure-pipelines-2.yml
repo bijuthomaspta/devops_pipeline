@@ -60,5 +60,5 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'Kubernetes_connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'bijuthomaspta/hello-world-java223:${tag}'
