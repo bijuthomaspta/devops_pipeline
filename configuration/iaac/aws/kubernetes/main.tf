@@ -17,16 +17,11 @@ resource "aws_default_vpc" "default" {
 
 }
 
-# data "aws_subnet_ids" "subnets" {
-#   vpc_id = aws_default_vpc.default.id
-# }
+data "aws_subnet_ids" "subnets" {
+  vpc_id = aws_default_vpc.default.id
+}
 
-# provider "kubernetes" {
-#   host                   = data.aws_eks_cluster.cluster.endpoint
-#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-#   token                  = data.aws_eks_cluster_auth.cluster.token
-#   version                = "~> 2.12"
-# }
+
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
@@ -66,7 +61,7 @@ data "aws_eks_cluster" "cluster" {
   name = module.my-cluster.cluster_id
 }
 
-data "aws_eks_cluster_auth" "cluster" {
+data "aws_eks_cluster_auth" "cluster1" {
   name = module.my-cluster.cluster_id
 }
 
