@@ -34,7 +34,7 @@ module "in28minutes-cluster" {
   cluster_version = "1.14"
   subnets         = ["subnet-01f9ebf3562398329", "subnet-00d56bff72c265381"] #CHANGE
   #subnets = data.aws_subnet_ids.subnets.ids
-  vpc_id          = aws_default_vpc.default.id
+  vpc_id          = "vpc-0dcf29638688c0f1f"  #aws_default_vpc.default.id
 
   #vpc_id         = "vpc-1234556abcdef"
 
@@ -78,5 +78,5 @@ resource "kubernetes_cluster_role_binding" "example" {
 
 # Needed to set the default region
 provider "aws" {
-  region  = "us-east-1"
+  region  = "us-east-2"
 }
