@@ -44,16 +44,16 @@ module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "my-cluster"
   cluster_version = "1.17"
-  subnet_ids =  ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
+  subnet_ids =  module.["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
   #subnets         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] #CHANGE
   #subnets = data.aws_subnet_ids.subnets.ids
-  vpc_id          = aws_default_vpc.default.id
+  vpc_id          = module.aws_default_vpc.default.id
 
   #vpc_id         = "vpc-1234556abcdef"
 
 #   node_groups = [
-  eks_managed_node_groups = 
-    [{name = "workergroup"
+  eks_managed_node_groups = [
+    {
       instance_type = "t2.micro"
       max_capacity  = 5
       desired_capacity = 3
