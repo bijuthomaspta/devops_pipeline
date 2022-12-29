@@ -29,7 +29,7 @@ provider "kubernetes" {
 }
 
 module "in28minutes-cluster" {
-  source          =  "terraform-aws-modules/eks/aws/modules/node_groups"  #"terraform-aws-modules/eks/aws"
+  source          =  "terraform-aws-modules/eks/aws"
   cluster_name    = "in28minutes-cluster"
   cluster_version = "1.14"
   subnet_ids =  ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
