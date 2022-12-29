@@ -43,6 +43,7 @@ provider "kubernetes" {
 module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "my-cluster"
+  name_prefix = "nodegroup"
   cluster_version = "1.17"
   subnet_ids =  ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
   #subnets         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] #CHANGE
@@ -54,7 +55,6 @@ module "my-cluster" {
   #node_groups = [
   eks_managed_node_groups = [
     {
-      name_prefix = "group"
       instance_type = "t2.micro"
       max_capacity  = 5
       desired_capacity = 3
