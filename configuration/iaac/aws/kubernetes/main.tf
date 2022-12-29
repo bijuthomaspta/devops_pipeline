@@ -53,7 +53,7 @@ module "my-cluster" {
 
   #node_groups = [
 #   eks_managed_node_groups = [
-   worker_groups =    [
+   worker_groups = [
       instance_type = "t2.micro"
       max_capacity  = 5
       desired_capacity = 3
