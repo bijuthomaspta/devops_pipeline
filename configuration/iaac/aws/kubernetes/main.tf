@@ -17,9 +17,9 @@ resource "aws_default_vpc" "default" {
 
 }
 
-data "aws_subnet_ids" "subnets" {
-  vpc_id = aws_default_vpc.default.id
-}
+# data "aws_subnet_ids" "subnets" {
+#   vpc_id = aws_default_vpc.default.id
+# }
 
 
 provider "kubernetes" {
@@ -57,13 +57,13 @@ module "my-cluster" {
   }
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = module.my-cluster.cluster_id
-}
+# data "aws_eks_cluster" "cluster" {
+#   name = module.my-cluster.cluster_id
+# }
 
-data "aws_eks_cluster_auth" "cluster1" {
-  name = module.my-cluster.cluster_id
-}
+# data "aws_eks_cluster_auth" "cluster" {
+#   name = module.my-cluster.cluster_id
+# }
 
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
