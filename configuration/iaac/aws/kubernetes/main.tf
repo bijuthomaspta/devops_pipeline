@@ -38,7 +38,7 @@ module "in28minutes-cluster" {
 
   #vpc_id         = "vpc-1234556abcdef"
 
-  node_groups = [
+  eks_managed_node_groups = [
     {
       instance_type = "t2.micro"
       max_capacity  = 5
