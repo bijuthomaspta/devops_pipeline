@@ -45,7 +45,7 @@ module "in28minutes-cluster" {
       desired_capacity = 3
       min_capacity  = 3
     }
-  ]
+  }
 }
 
 data "aws_eks_cluster" "cluster" {
