@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'rhel-latest'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Hello, world!
