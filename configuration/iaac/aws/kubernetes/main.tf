@@ -41,11 +41,11 @@ module "my-cluster" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  id =  module.my-cluster.id
+  name =  "module.my-cluster.cluster_id"
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  id =  module.my-cluster.id
+  name = " module.my-cluster.cluster_id"
 }  
   
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
