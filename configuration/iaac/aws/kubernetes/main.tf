@@ -19,11 +19,11 @@ resource "aws_default_vpc" "default" {
 
 
 data "aws_eks_cluster" "cluster" {
-  name = module.my-cluster
+#   name = module.my-cluster
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.my-cluster
+#   name = module.my-cluster
 }
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
