@@ -22,9 +22,9 @@ data "aws_subnet_ids" "subnets" {
 }
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  host                   = data.aws_eks_cluster.in28minutes-cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.in28minutes-cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.in28minutes-cluster.token
 #   version                = "~> 1.0"
 }
 
@@ -47,11 +47,11 @@ module "in28minutes-cluster" {
     }
   }  
 }
-data "aws_eks_cluster" "cluster" {
+data "aws_eks_cluster" "in28minutes-cluster" {
   name = module.in28minutes-cluster.cluster_id
 }
 
-data "aws_eks_cluster_auth" "cluster" {
+data "aws_eks_cluster_auth" "in28minutes-cluster" {
   name = module.in28minutes-cluster.cluster_id
 }
 
