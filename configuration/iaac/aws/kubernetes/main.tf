@@ -34,15 +34,15 @@ module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "my-cluster"
 #   cluster_version = "1.17"
-  subnets         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
+  subnet_ids         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
   vpc_id          = aws_default_vpc.default.id
   
-  worker_groups = [
-    {
+   eks_managed_node_groups = {
+    one = {
       instance_type = "t2.micro"
       asg_max_size  = 5
     }
-  ]
+   }
 }
 
 
