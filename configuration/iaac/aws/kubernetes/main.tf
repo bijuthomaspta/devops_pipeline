@@ -19,11 +19,11 @@ resource "aws_default_vpc" "default" {
 
 
 data "aws_eks_cluster" "cluster" {
-  name = my-cluster.cluster.id
+  name = aws_eks_cluster.cluster.id
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = my-cluster.cluster.id
+  name = aws_eks_cluster.cluster.id
 }
 
 provider "kubernetes" {
