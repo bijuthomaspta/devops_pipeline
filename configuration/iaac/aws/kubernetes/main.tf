@@ -13,47 +13,36 @@ terraform {
   }
 }
 
-resource "aws_default_vpc" "default" {
 
+data "aws_eks_cluster" "cluster" {
+  name = module.my-cluster.cluster_id
 }
 
-data "aws_subnet_ids" "subnets" {
-  vpc_id = aws_default_vpc.default.id
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.my-cluster.cluster_id
 }
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-#   version                = "~> 2.12"
+  load_config_file       = false
+  version                = "~> 1.9"
 }
 
-module "in28minutes-cluster123" {
+module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "in28minutes-cluster1234"
-#   cluster_version = "1.14"
-  subnet_ids         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] #CHANGE
-  #subnets = data.aws_subnet_ids.subnets.ids
+  cluster_name    = "my-cluster"
+  cluster_version = "1.17"
+  subnets         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
   vpc_id          = aws_default_vpc.default.id
-
-  #vpc_id         = "vpc-1234556abcdef"
-
-  eks_managed_node_groups = {
-    one = {
+  
+  worker_groups = [
+    {
       instance_type = "t2.micro"
-      max_capacity  = 5
-      desired_capacity = 3
-      min_capacity  = 3
+      asg_max_size  = 5
     }
-  }
-}
-
-data "aws_eks_cluster" "cluster" {
-  name = module.in28minutes-cluster123.cluster_id
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.in28minutes-cluster123.cluster_id
+  ]
 }
 
 
