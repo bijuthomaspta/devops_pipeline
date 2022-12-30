@@ -17,15 +17,6 @@ resource "aws_default_vpc" "default" {
 
 }
 
-
-data "aws_eks_cluster" "cluster" {
-  id =  module.my-cluster.id
-}
-
-data "aws_eks_cluster_auth" "cluster" {
-  id =  module.my-cluster.id
-}
-}
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
@@ -49,7 +40,14 @@ module "my-cluster" {
    }
 }
 
+data "aws_eks_cluster" "cluster" {
+  id =  module.my-cluster.id
+}
 
+data "aws_eks_cluster_auth" "cluster" {
+  id =  module.my-cluster.id
+}  
+  
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
 # ServiceAccount needs permissions to create deployments 
 # and services in default namespace
