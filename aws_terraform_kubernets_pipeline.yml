@@ -1,41 +1,37 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
-- task: TerraformTaskV3@3
+- task: TerraformTaskV1@0
   inputs:
     provider: 'aws'
     command: 'init'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes/'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
     backendServiceAWS: 'aws_terraform_connection'
-    backendAWSBucketName: 'terraform-backend-state-123'
-    backendAWSKey: 'kubernetes.tfstate'
-
-- task: TerraformTaskV3@3
+    backendAWSBucketName: 'guyfuguhgigigilg'
+    backendAWSKey: 'kubernetes-dev.tfstate'
+- task: TerraformTaskV1@0
   inputs:
     provider: 'aws'
-    command: 'validate'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes/'
-- task: TerraformTaskV3@3
+    command: 'init'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+    backendServiceAWS: 'aws_terraform_connection'
+    backendAWSBucketName: 'guyfuguhgigigilg'
+    backendAWSKey: 'kubernetes-dev.tfstate'
+- task: TerraformTaskV1@0
   inputs:
     provider: 'aws'
     command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes/'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
     environmentServiceNameAWS: 'aws_terraform_connection'
-- task: TerraformTaskV3@3
-  inputs:
-    provider: 'aws'
-    command: 'destroy'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes/'
-    environmentServiceNameAWS: 'aws_terraform_connection'
+# - task: TerraformTaskV1@0
+#   inputs:
+#     provider: 'aws'
+#     command: 'destroy'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/aws/kubernetes'
+#     environmentServiceNameAWS: 'aws-for-terraform'
