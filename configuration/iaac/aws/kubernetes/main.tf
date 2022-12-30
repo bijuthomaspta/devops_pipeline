@@ -38,31 +38,15 @@ module "in28minutes-cluster" {
 
   #vpc_id         = "vpc-1234556abcdef"
 
-#   node_group = [
-#     {
-#       instance_type = "t2.micro"
-#       max_capacity  = 5
-#       desired_capacity = 3
-#       min_capacity  = 3
-#     }
-#   ]
-}
-resource "aws_eks_node_group" "example" {
-  cluster_name    = module.in28minutes-cluster.cluster_name
-  node_group_name = "example"
-#   node_role_arn   = aws_iam_role.example.arn
-   subnet_ids = data.aws_subnet_ids.subnets.ids
-
-  scaling_config {
-    desired_size = 1
-    max_size     = 2
-    min_size     = 1
-  }
-
-  update_config {
-    max_unavailable = 1
-  }
+  eks_managed_node_groups = {
+    one = {
+      instance_type = "t2.micro"
+      max_capacity  = 5
+      desired_capacity = 3
+      min_capacity  = 3
     }
+  }  
+}
 data "aws_eks_cluster" "cluster" {
   name = module.in28minutes-cluster.cluster_id
 }
