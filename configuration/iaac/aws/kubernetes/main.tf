@@ -21,6 +21,14 @@ data "aws_subnet_ids" "subnets" {
   vpc_id = aws_default_vpc.default.id
 }
 
+data "aws_eks_cluster" "in28minutes-cluster" {
+  name = module.in28minutes-cluster.cluster_id
+}
+
+data "aws_eks_cluster_auth" "in28minutes-cluster" {
+  name = module.in28minutes-cluster.cluster_id
+}
+
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.in28minutes-cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.in28minutes-cluster.certificate_authority.0.data)
@@ -47,14 +55,6 @@ module "in28minutes-cluster" {
     }
   }  
 }
-data "aws_eks_cluster" "in28minutes-cluster" {
-  name = module.in28minutes-cluster.cluster_id
-}
-
-data "aws_eks_cluster_auth" "in28minutes-cluster" {
-  name = module.in28minutes-cluster.cluster_id
-}
-
 
 # We will use ServiceAccount to connect to K8S Cluster in CI/CD mode
 # ServiceAccount needs permissions to create deployments 
