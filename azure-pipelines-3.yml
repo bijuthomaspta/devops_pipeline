@@ -61,5 +61,5 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'AWS_EKS_Connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/'
         containers: 'bijuthomaspta/currency-exchange-devops:${tag}'
