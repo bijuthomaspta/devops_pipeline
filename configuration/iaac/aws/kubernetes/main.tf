@@ -45,7 +45,7 @@ provider "kubernetes" {
 
 module "my-cluster" {
   source          = "terraform-aws-modules/eks/aws"
-  cluster_name    = "my-cluster"
+  cluster_name    = "my-cluster_in_aws_eks"
 #   cluster_version = "1.14"
   subnet_ids = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] 
   #subnets         = ["subnet-01f9ebf3562398329", "subnet-0291156351ccb436b"] #CHANGE
