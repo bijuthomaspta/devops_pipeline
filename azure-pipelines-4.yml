@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'Docker_hub_connection'
-        repository: 'bijuthomaspta / currency-exchange-devops'
+        repository: 'bijuthomaspta / dockerpush_via_azure_devops_new'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
