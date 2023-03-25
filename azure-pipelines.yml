@@ -5,26 +5,14 @@
 trigger:
 - master
 
-resources:
-- repo: self
-
-variables:
-  tag: '$(Build.BuildId)'
-
-stages:
-- stage: Build
-  displayName: Build image
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: ubuntu-latest
-    steps:
-    - task: Docker@2
-      displayName: Build an image
-      inputs:
-        containerRegistry: 'My_Doscker_Hub'
-        repository: 'bijuthomaspta/currency-exchange-devops'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+strategy:
+ matrix:
+   linux:
+      os: 'ubuntu-latest'
+   mac:
+     os: 'mac-latest'
+pool:
+  vmImage: $(os)
+steps:
+  - script: echo this is $(os)
+    displayName: 'Run a online script'
