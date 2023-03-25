@@ -10,7 +10,7 @@ strategy:
    linux:
       os: 'ubuntu-latest'
    mac:
-     os: 'mac-latest'
+     os: 'macos-latest'
 pool:
   vmImage: $(os)
 steps:
